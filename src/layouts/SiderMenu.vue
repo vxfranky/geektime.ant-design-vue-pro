@@ -1,5 +1,5 @@
 <template>
-  <div>SideMenu</div>
+  <div>SiderMenu</div>
 </template>
 
 <script>
