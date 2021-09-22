@@ -12,7 +12,12 @@
           :trigger="null"
           collapsible
         >
-          <div class="logo">Ant Design of Vue</div>
+          <div
+            class="logo"
+            :style="{ color: appearance === 'dark' ? '#fff' : '#000' }"
+          >
+            Ant Design of Vue
+          </div>
           <a-menu
             :theme="appearance"
             mode="inline"
@@ -56,9 +61,15 @@
             position: 'fixed',
             zIndex: 1,
             width: '100%',
+            padding: 0,
           }"
         >
-          <div class="logo">Ant Design of Vue</div>
+          <div
+            class="logo"
+            :style="{ color: appearance === 'dark' ? '#fff' : '#000' }"
+          >
+            Ant Design of Vue
+          </div>
           <Header />
           <a-menu
             :theme="appearance"
