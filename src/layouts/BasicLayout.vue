@@ -7,24 +7,32 @@
         v-if="navMode == 'vertical'"
       >
         <a-layout-sider
-          :theme="appearance"
+          :theme="theme"
           v-model="collapsed"
           :trigger="null"
+          :width="siderWidth"
           collapsible
         >
           <div
+            v-if="!collapsed"
             class="logo"
-            :style="{ color: appearance === 'dark' ? '#fff' : '#000' }"
+            :style="{ color: theme === 'dark' ? '#fff' : '#000' }"
           >
             Ant Design of Vue
           </div>
-          <a-menu
-            :theme="appearance"
-            mode="inline"
-            :default-selected-keys="['1']"
+          <div
+            v-else
+            class="logo"
+            :style="{ color: theme === 'dark' ? '#fff' : '#000' }"
           >
-            <SiderMenu />
-          </a-menu>
+            AntDV
+          </div>
+          <SiderMenu
+            :collapsed="collapsed"
+            :navMode="navMode"
+            :theme="theme"
+            :siderWidth="siderWidth"
+          />
         </a-layout-sider>
         <a-layout>
           <a-layout-header style="background: #fff; padding: 0">
@@ -66,18 +74,23 @@
         >
           <div
             class="logo"
-            :style="{ color: appearance === 'dark' ? '#fff' : '#000' }"
+            :style="{ color: theme === 'dark' ? '#fff' : '#000' }"
           >
             Ant Design of Vue
           </div>
           <Header />
           <a-menu
-            :theme="appearance"
+            :theme="theme"
             mode="horizontal"
             :default-selected-keys="['1']"
             :style="{ lineHeight: '64px' }"
           >
-            <SiderMenu />
+            <SiderMenu
+              :collapsed="true"
+              :navMode="navMode"
+              :theme="theme"
+              :siderWidth="siderWidth"
+            />
           </a-menu>
         </a-layout-header>
         <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
@@ -111,11 +124,12 @@ export default {
   data() {
     return {
       collapsed: false,
+      siderWidth: "256px",
     };
   },
   computed: {
-    appearance() {
-      return this.$route.query.appearance || "light";
+    theme() {
+      return this.$route.query.theme || "dark";
     },
     navMode() {
       return this.$route.query.navMode || "vertical";

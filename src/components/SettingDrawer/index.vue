@@ -15,13 +15,13 @@
       </template>
 
       <div>
-        <h3>Appearance</h3>
+        <h3>Theme</h3>
         <a-radio-group
-          :value="$route.query.appearance || 'light'"
-          @change="(e) => handleSettingChange('appearance', e.target.value)"
+          :value="$route.query.theme || 'dark'"
+          @change="(e) => handleSettingChange('theme', e.target.value)"
         >
-          <a-radio value="light"> Light </a-radio>
           <a-radio value="dark"> Dark </a-radio>
+          <a-radio value="light"> Light </a-radio>
         </a-radio-group>
         <a-divider />
         <h3>Navigation Mode</h3>
@@ -44,8 +44,8 @@ export default {
     };
   },
   computed: {
-    appearance() {
-      return this.$route.query.appearance || "light";
+    theme() {
+      return this.$route.query.theme || "light";
     },
     navMode() {
       return this.$route.query.navMode || "vertical";
