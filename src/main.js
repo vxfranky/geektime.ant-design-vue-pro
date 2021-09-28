@@ -10,6 +10,7 @@ import {
   Radio,
   Divider,
   Menu,
+  Result,
 } from "ant-design-vue";
 
 Vue.config.productionTip = false;
@@ -21,6 +22,7 @@ Vue.use(Drawer);
 Vue.use(Radio);
 Vue.use(Divider);
 Vue.use(Menu);
+Vue.use(Result);
 
 new Vue({
   router,

@@ -2,7 +2,10 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import findLast from "lodash/findLast";
+import Forbidden from "../views/403";
 import NotFound from "../views/404";
+import { checkAuth, isLogin } from "../utils/auth";
 
 Vue.use(VueRouter);
 
@@ -35,6 +38,7 @@ const routes = [
   },
   {
     path: "/",
+    meta: { auth: ["user", "admin"] },
     component: () =>
       import(/* webpackChunkName: "layout" */ "../layouts/BasicLayout"),
     children: [
@@ -47,13 +51,13 @@ const routes = [
       {
         path: "/dashboard",
         name: "dashboard",
-        meta: { icon: "dashboard", title: "仪表盘" },
+        meta: { icon: "dashboard", title: "Dashboard" },
         component: { render: (h) => h("router-view") },
         children: [
           {
             path: "/dashboard/analysis",
             name: "analysis",
-            meta: { title: "分析页" },
+            meta: { title: "Analysis" },
             component: () =>
               import(
                 /* webpackChunkName: "dashboard" */ "../views/Dashboard/Analysis"
@@ -66,12 +70,12 @@ const routes = [
         path: "/form",
         name: "form",
         component: { render: (h) => h("router-view") },
-        meta: { icon: "form", title: "表单" },
+        meta: { icon: "form", title: "Forms", auth: ["admin"] },
         children: [
           {
             path: "/form/basic-form",
             name: "basicform",
-            meta: { title: "基础表单" },
+            meta: { title: "Basic Form" },
             component: () =>
               import(/* webpackChunkName: "form" */ "../views/Forms/BasicForm"),
           },
@@ -79,7 +83,7 @@ const routes = [
             path: "/form/step-form",
             name: "stepform",
             hideChildrenInMenu: true,
-            meta: { title: "分步表单" },
+            meta: { title: "Step Form" },
             component: () =>
               import(/* webpackChunkName: "form" */ "../views/Forms/StepForm"),
             children: [
@@ -116,6 +120,12 @@ const routes = [
         ],
       },
       {
+        path: "/403",
+        name: "403",
+        hideInMenu: true,
+        component: Forbidden,
+      },
+      {
         path: "*",
         name: "404",
         hideInMenu: true,
@@ -134,6 +144,19 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.path !== from.path) {
     NProgress.start();
+  }
+  const record = findLast(to.matched, (record) => record.meta.auth);
+  if (record && !checkAuth(record.meta.auth)) {
+    if (!isLogin() && to.path !== "/user/login") {
+      next({
+        path: "/user/login",
+      });
+    } else if (to.path !== "/403") {
+      next({
+        path: "/403",
+      });
+    }
+    NProgress.done();
   }
   next();
 });
