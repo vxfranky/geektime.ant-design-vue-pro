@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import Auth from "./directives/auth";
 import {
   Button,
   Layout,
@@ -23,6 +24,7 @@ Vue.use(Radio);
 Vue.use(Divider);
 Vue.use(Menu);
 Vue.use(Result);
+Vue.use(Auth);
 
 new Vue({
   router,

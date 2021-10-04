@@ -40,7 +40,8 @@
               class="trigger"
               :type="collapsed ? 'menu-unfold' : 'menu-fold'"
               @click="() => (collapsed = !collapsed)"
-            />
+              v-auth="['admin']"
+            ></a-icon>
             <Header />
           </a-layout-header>
           <a-layout-content
