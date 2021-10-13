@@ -12,6 +12,8 @@ import {
   Divider,
   Menu,
   Result,
+  Form,
+  Input,
 } from "ant-design-vue";
 
 Vue.config.productionTip = false;
@@ -24,6 +26,8 @@ Vue.use(Radio);
 Vue.use(Divider);
 Vue.use(Menu);
 Vue.use(Result);
+Vue.use(Form);
+Vue.use(Input);
 Vue.use(Auth);
 
 new Vue({
