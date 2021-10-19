@@ -14,6 +14,7 @@ import {
   Result,
   Form,
   Input,
+  Select,
 } from "ant-design-vue";
 
 Vue.config.productionTip = false;
@@ -28,6 +29,7 @@ Vue.use(Menu);
 Vue.use(Result);
 Vue.use(Form);
 Vue.use(Input);
+Vue.use(Select);
 Vue.use(Auth);
 
 new Vue({

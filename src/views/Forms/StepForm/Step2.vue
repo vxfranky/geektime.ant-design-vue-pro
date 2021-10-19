@@ -9,6 +9,14 @@
         {{ step.payAccount }}
       </a-form-item>
       <a-form-item
+        label="Receiver account"
+        :label-col="formItemLayout.labelCol"
+        :wrapper-col="formItemLayout.wrapperCol"
+      >
+        {{ step.receiverAccount.type }} -
+        {{ step.receiverAccount.accountNumber }}
+      </a-form-item>
+      <a-form-item
         label="Password"
         :label-col="formItemLayout.labelCol"
         :wrapper-col="formItemLayout.wrapperCol"
